@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+Professional Summary
 
-First, run the development server:
+Full-Stack & DevOps Engineer / Accessibility Specialist with 4+ years of experience building, deploying, and optimizing enterprise web applications. Proven track record driving modern stack migrations and managing scalable cloud infrastructure. Expertly bridges the gap between infrastructure efficiency, robust full-stack product delivery, and comprehensive digital accessibility, spearheading technical compliance initiatives (WCAG 2.1/2.2 AA) to eliminate UI/UX barriers across high-traffic platforms.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Technical Skills
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+• Backend & DevOps: Node.js, Ruby on Rails, AWS, CI/CD (GitHub Actions), Docker, JSON-RPC 2.0, MCP Architecture
+• Frontend & Testing: React, Next.js 15, TypeScript, JavaScript, Playwright, Jest, Cypress
+• Accessibility (a11y): WCAG 2.1/2.2 AA, Screen Reader Testing (NVDA/VoiceOver), Keyboard Navigation Design, Automated Remediation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Key Projects
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Next.js 15 KPI Dashboard & Testing Automation
 
-## Learn More
+• Engineered a high-performance analytics dashboard utilizing Next.js 15 and TypeScript to deliver real-time metrics.
+• Built a custom Playwright automation tool that simulates keyboard navigation and screen reader workflows to catch barriers missed by standard static scanners.
+• Configured automated deployment pipelines with built-in testing gates to ensure zero-regression code releases.
 
-To learn more about Next.js, take a look at the following resources:
+a11y-gpt-remediation-engine
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+• Developed an automation tool designed to parse accessibility logs and generate layout remediation scripts.
+• Designed the core ingestion architecture to map violation timelines into clean data schemas for automated fixes.
