@@ -1,4 +1,17 @@
-import { education, experience, profile, projects, skills } from "@/data/content";
+import {
+  contact,
+  education,
+  experience,
+  headings,
+  hero,
+  nav,
+  organizations,
+  profile,
+  projects,
+  projectsEmpty,
+  skills,
+  ui,
+} from "@/data/content";
 
 const wrap = "mx-auto w-[min(100%-2.5rem,62rem)]";
 const section = `${wrap} border-t border-line py-12 md:py-20`;
@@ -16,7 +29,7 @@ export default function Home() {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:font-semibold focus:text-accent-ink"
       >
-        Skip to main content
+        {ui.skipLink}
       </a>
 
       <header className="sticky top-0 z-10 border-b border-line bg-bg/90 backdrop-blur">
@@ -24,12 +37,12 @@ export default function Home() {
           <a href="#top" className="font-display text-lg font-bold text-ink no-underline">
             {profile.name}
           </a>
-          <nav aria-label="Primary">
+          <nav aria-label={ui.navLabel}>
             <ul className="flex flex-wrap gap-x-6 gap-y-1">
-              {["experience", "projects", "skills", "contact"].map((id) => (
-                <li key={id}>
-                  <a href={`#${id}`} className="inline-block py-1 capitalize text-muted hover:text-ink hover:underline">
-                    {id}
+              {nav.map((item) => (
+                <li key={item.id}>
+                  <a href={`#${item.id}`} className="inline-block py-1 text-muted hover:text-ink hover:underline">
+                    {item.label}
                   </a>
                 </li>
               ))}
@@ -46,27 +59,32 @@ export default function Home() {
               id="hero-title"
               className="max-w-[16ch] text-balance font-display text-5xl font-bold leading-[1.05] tracking-tighter md:text-7xl lg:text-8xl"
             >
-              I build web products that work for <span className="text-accent">everyone</span>.
+              {hero.headlineStart}
+              <span className="text-accent">{hero.headlineHighlight}</span>
+              {hero.headlineEnd}
             </h1>
             <p className="mt-7 max-w-[62ch] text-lg text-muted md:text-xl">{profile.summary}</p>
             <p className="mt-8 flex flex-wrap gap-3">
-              <a href="#projects" className={btnPrimary}>See projects</a>
-              <a href={`mailto:${profile.email}`} className={btnGhost}>Email me</a>
+              <a href="#projects" className={btnPrimary}>{hero.primaryButton}</a>
+              <a href={`mailto:${profile.email}`} className={btnGhost}>{hero.secondaryButton}</a>
             </p>
           </section>
         </div>
 
         <section id="experience" aria-labelledby="experience-title" className={section}>
-          <h2 id="experience-title" className={h2}>Experience</h2>
+          <h2 id="experience-title" className={h2}>{headings.experience}</h2>
           {experience.map((job) => (
             <article key={job.company}>
               <header className="mb-6 flex flex-wrap items-baseline gap-x-6 gap-y-1">
                 <h3 className="font-display text-2xl font-bold">{job.company}</h3>
-                <p className="text-sm text-muted">{job.place}, {job.period}</p>
+                <p className="text-sm text-muted">{job.place}</p>
               </header>
               {job.roles.map((role) => (
                 <div key={role.title} className="mb-8 border-l-2 border-line pl-6">
-                  <h4 className="mb-3 font-display text-lg font-semibold text-accent">{role.title}</h4>
+                  <div className="mb-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                    <h4 className="font-display text-lg font-semibold text-accent">{role.title}</h4>
+                    <p className="text-sm text-muted">{role.period}</p>
+                  </div>
                   <ul className="grid max-w-[68ch] list-disc gap-2.5 pl-5">
                     {role.points.map((p) => <li key={p}>{p}</li>)}
                   </ul>
@@ -77,11 +95,12 @@ export default function Home() {
         </section>
 
         <section id="projects" aria-labelledby="projects-title" className={section}>
-          <h2 id="projects-title" className={h2}>Projects</h2>
+          <h2 id="projects-title" className={h2}>{headings.projects}</h2>
           {projects.length === 0 ? (
             <p className="max-w-[60ch] rounded-xl border border-dashed border-line bg-surface p-6 text-muted forced-colors:border-[CanvasText]">
-              I am still putting this section together. Check back soon, or{" "}
-              <a href={`mailto:${profile.email}`} className={link}>email me</a> if you would like to hear about my work now.
+              {projectsEmpty.before}
+              <a href={`mailto:${profile.email}`} className={link}>{projectsEmpty.linkText}</a>
+              {projectsEmpty.after}
             </p>
           ) : (
             <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -92,14 +111,22 @@ export default function Home() {
                 >
                   <h3 className="mb-2 font-display text-xl font-bold">{p.title}</h3>
                   <p className="text-muted">{p.summary}</p>
-                  <ul className="mt-4 flex flex-wrap gap-2" aria-label={`Technologies used in ${p.title}`}>
+                  <ul className="mt-4 flex flex-wrap gap-2" aria-label={ui.technologiesUsedIn(p.title)}>
                     {p.stack.map((s) => (
                       <li key={s} className="rounded-full border border-line px-3 py-0.5 text-sm">{s}</li>
                     ))}
                   </ul>
                   <p className="mt-4 flex gap-5">
-                    {p.href && <a href={p.href} className={link}>Live site<span className="sr-only"> for {p.title}</span></a>}
-                    {p.repo && <a href={p.repo} className={link}>Source code<span className="sr-only"> for {p.title}</span></a>}
+                    {p.href && (
+                      <a href={p.href} className={link}>
+                        {ui.liveSite}<span className="sr-only"> {ui.forProject(p.title)}</span>
+                      </a>
+                    )}
+                    {p.repo && (
+                      <a href={p.repo} className={link}>
+                        {ui.sourceCode}<span className="sr-only"> {ui.forProject(p.title)}</span>
+                      </a>
+                    )}
                   </p>
                 </li>
               ))}
@@ -108,7 +135,7 @@ export default function Home() {
         </section>
 
         <section id="skills" aria-labelledby="skills-title" className={section}>
-          <h2 id="skills-title" className={h2}>Skills</h2>
+          <h2 id="skills-title" className={h2}>{headings.skills}</h2>
           <dl className="grid gap-6 sm:grid-cols-2">
             {skills.map((g) => (
               <div key={g.group}>
@@ -117,25 +144,36 @@ export default function Home() {
               </div>
             ))}
           </dl>
-          <h3 className="mb-4 mt-12 font-display text-xl font-bold">Education and certifications</h3>
+
+          <h3 className="mb-4 mt-12 font-display text-xl font-bold">{headings.education}</h3>
           <ul className="grid gap-3.5">
             {education.map((e) => (
               <li key={e.name} className="flex flex-col">
                 <span>{e.name}</span>
-                <span className="text-sm text-muted">{e.org}, {e.date}</span>
+                <span className="text-sm text-muted">{e.org}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="mb-4 mt-12 font-display text-xl font-bold">{headings.organizations}</h3>
+          <ul className="grid gap-3.5">
+            {organizations.map((o) => (
+              <li key={o.name} className="flex max-w-[68ch] flex-col">
+                <span>{o.name}</span>
+                <span className="text-sm text-muted">{o.description}</span>
               </li>
             ))}
           </ul>
         </section>
 
         <section id="contact" aria-labelledby="contact-title" className={section}>
-          <h2 id="contact-title" className={h2}>Contact</h2>
-          <p className="max-w-[62ch] text-lg text-muted">
-            Open to full-stack, DevOps, and accessibility engineering roles. The fastest way to reach me is email.
-          </p>
+          <h2 id="contact-title" className={h2}>{headings.contact}</h2>
+          <p className="max-w-[62ch] text-lg text-muted">{contact.intro}</p>
           <p className="mt-8 flex flex-wrap gap-3">
             <a href={`mailto:${profile.email}`} className={btnPrimary}>{profile.email}</a>
-            <a href={profile.linkedin} className={btnGhost}>LinkedIn<span className="sr-only"> profile</span></a>
+            <a href={profile.linkedin} className={btnGhost}>
+              {contact.linkedinLabel}<span className="sr-only"> {contact.linkedinHidden}</span>
+            </a>
           </p>
         </section>
       </main>
