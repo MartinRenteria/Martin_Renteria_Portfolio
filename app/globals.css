@@ -1,26 +1,310 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   1. THEME TOKENS
+   Dark (teal) is the default. The inline script in <head> sets
+   data-theme="light" | "dark" on <html> before first paint.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --bg: #0b0f14;
+  --surface: #121923;
+  --ink: #e8edf2;
+  --muted: #a7b3c1;
+  --line: #243040;
+  --line-strong: #6b7a8c; 
+  --accent: #2dd4bf;
+  --accent-hover: #99f6e4;
+  --accent-ink: #0b0f14;
+  --glow: rgb(45 212 191 / 0.08);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fafaf7;
+  --surface: #ffffff;
+  --ink: #111827;
+  --muted: #4b5563;
+  --line: #d9dbe1;
+  --line-strong: #6b7280;
+  --accent: #3730a3;
+  --accent-hover: #312e81;
+  --accent-ink: #fafaf7;
+  --glow: rgb(55 48 163 / 0.07);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-display: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   2. CUSTOM UTILITIES
+   ========================================================================== */
+
+@utility page-width {
+  margin-inline: auto;
+  width: min(100% - 2.5rem, 62rem);
+}
+
+/* ==========================================================================
+   3. BASE
+   ========================================================================== */
+
+@layer base {
+  html {
+    /* Keeps anchored sections from hiding under the sticky header. */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   4. COMPONENTS
+   ========================================================================== */
+
+@layer components {
+  /* ---- Skip link ------------------------------------------------------- */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:font-semibold focus:text-accent-ink;
+  }
+
+  /* ---- Header & navigation -------------------------------------------- */
+  .site-header {
+    @apply sticky top-0 z-10 border-b border-line bg-bg/90 backdrop-blur;
+  }
+
+  .site-header__inner {
+    @apply page-width flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-3;
+  }
+
+  .brand {
+    @apply font-display text-lg font-bold text-ink;
+    text-decoration: none;
+  }
+
+  .nav-list {
+    @apply flex flex-wrap gap-x-6 gap-y-1;
+  }
+
+  .nav-link {
+    @apply inline-block py-1 text-muted hover:text-ink hover:underline;
+  }
+
+  .site-header__controls {
+    @apply flex flex-wrap items-center gap-x-6 gap-y-2;
+  }
+
+  .theme-toggle {
+    @apply cursor-pointer rounded-lg border border-line-strong px-3 py-1 text-sm font-semibold text-ink hover:border-accent;
+  }
+
+  /* ---- Buttons & links ------------------------------------------------- */
+  .btn {
+    @apply inline-block rounded-lg border px-5 py-3 font-semibold transition-colors;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    @apply border-accent bg-accent text-accent-ink hover:border-accent-hover hover:bg-accent-hover;
+  }
+
+  .btn-ghost {
+    @apply border-line-strong text-ink hover:border-accent;
+  }
+
+  .actions {
+    @apply mt-8 flex flex-wrap gap-3;
+  }
+
+  .text-link {
+    @apply text-accent underline underline-offset-4 hover:text-accent-hover;
+  }
+
+  /* ---- Hero ------------------------------------------------------------ */
+  .hero-glow {
+    background: radial-gradient(60rem 28rem at 15% 0%, var(--glow), transparent);
+  }
+
+  .hero {
+    @apply page-width py-16 md:py-32;
+  }
+
+  .hero__role {
+    @apply mb-5 text-muted;
+  }
+
+  .hero__title {
+    @apply max-w-[16ch] text-balance font-display text-5xl font-bold leading-[1.05] tracking-tighter md:text-7xl lg:text-8xl;
+  }
+
+  .hero__highlight {
+    @apply text-accent;
+  }
+
+  .hero__summary {
+    @apply mt-7 max-w-[62ch] text-lg text-muted md:text-xl;
+  }
+
+  /* ---- Sections -------------------------------------------------------- */
+  .section {
+    @apply page-width border-t border-line py-12 md:py-20;
+  }
+
+  .section-title {
+    @apply mb-8 font-display text-3xl font-bold tracking-tight md:text-4xl;
+  }
+
+  .subheading {
+    @apply mb-4 mt-12 font-display text-xl font-bold;
+  }
+
+  /* ---- Experience ------------------------------------------------------ */
+  .job__header {
+    @apply mb-6 flex flex-wrap items-baseline gap-x-6 gap-y-1;
+  }
+
+  .job__company {
+    @apply font-display text-2xl font-bold;
+  }
+
+  .job__place {
+    @apply text-sm text-muted;
+  }
+
+  .role {
+    @apply mb-8 border-l-2 border-line pl-6;
+  }
+
+  .role__header {
+    @apply mb-3 flex flex-wrap items-baseline gap-x-4 gap-y-1;
+  }
+
+  .role__title {
+    @apply font-display text-lg font-semibold text-accent;
+  }
+
+  .role__period {
+    @apply text-sm text-muted;
+  }
+
+  .role__points {
+    @apply grid max-w-[68ch] list-disc gap-2.5 pl-5;
+  }
+
+  /* ---- Projects -------------------------------------------------------- */
+  .empty-note {
+    @apply max-w-[60ch] rounded-xl border border-dashed border-line bg-surface p-6 text-muted;
+  }
+
+  .project-grid {
+    @apply grid gap-5 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .project-card {
+    @apply rounded-xl border border-line bg-surface p-6 transition-colors hover:border-accent/60;
+  }
+
+  .project-card__title {
+    @apply mb-2 font-display text-xl font-bold;
+  }
+
+  .project-card__summary {
+    @apply text-muted;
+  }
+
+  .project-card__links {
+    @apply mt-4 flex gap-5;
+  }
+
+  .tag-list {
+    @apply mt-4 flex flex-wrap gap-2;
+  }
+
+  .tag {
+    @apply rounded-full border border-line px-3 py-0.5 text-sm;
+  }
+
+  /* ---- Skills, education, organizations -------------------------------- */
+  .skill-grid {
+    @apply grid gap-6 sm:grid-cols-2;
+  }
+
+  .skill-group__name {
+    @apply mb-1 font-display text-lg font-semibold;
+  }
+
+  .skill-group__items {
+    @apply text-muted;
+  }
+
+  .stack-list {
+    @apply grid gap-3.5;
+  }
+
+  .stack-item {
+    @apply flex flex-col;
+  }
+
+  .stack-item--prose {
+    @apply max-w-[68ch];
+  }
+
+  .stack-item__detail {
+    @apply text-sm text-muted;
+  }
+
+  /* ---- Contact & footer ------------------------------------------------ */
+  .contact-intro {
+    @apply max-w-[62ch] text-lg text-muted;
+  }
+
+  .site-footer {
+    @apply page-width border-t border-line pb-12 pt-8 text-sm text-muted;
+  }
+
+  /* ---- Motion preferences --------------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .project-card {
+      transition: none;
+    }
+  }
+
+  /* ---- Windows High Contrast / forced colors --------------------------- */
+  @media (forced-colors: active) {
+    .btn {
+      border-color: ButtonText;
+    }
+
+    .empty-note,
+    .project-card {
+      border-color: CanvasText;
+    }
+  }
 }

@@ -8,7 +8,7 @@ export type Project = {
 
 export const site = {
     language: "en",
-    title: "Martin Renteria | Full-stack engineer and accessibility specialist",
+    title: "Martin Renteria | Full-stack engineer and ccessibility specialist",
     description:
         "Portfolio of Martin Renteria: React, Next.js, and Node.js engineering with a focus on infrastructure and WCAG 2.2 AA accessibility.",
 };
@@ -29,7 +29,7 @@ export const profile = {
     email: "renteriamp96@gmail.com",
     linkedin: "https://linkedin.com/in/martin-renteria",
     summary:
-        "I have 4+ years of experience building, deploying, and optimizing enterprise web applications. I led a migration from Ruby to React, Next.js, and Node.js, ran cloud infrastructure on AWS, Heroku, and Netlify, and drove WCAG 2.1/2.2 AA compliance on high-traffic platforms.",
+        "I have 4+ years of experience building, deploying, and optimizing enterprise web applications. Co-led a migration from Ruby to React, Next.js, and Node.js, ran cloud infrastructure on AWS, Heroku, and Netlify, and drove WCAG 2.1/2.2 AA compliance on high-traffic platforms.",
 };
 
 export const nav = [
@@ -58,7 +58,7 @@ export const headings = {
 
 export const contact = {
     intro:
-        "Open to full-stack, DevOps, and accessibility engineering roles. The fastest way to reach me is email.",
+        "Open to Full-stack, DevOps, and Accessibility Engineering roles. The fastest way to reach me is email.",
     linkedinLabel: "LinkedIn",
     linkedinHidden: "profile",
 };
