@@ -12,6 +12,7 @@ import {
   skills,
   ui,
 } from "@/data/content";
+import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
@@ -94,26 +95,43 @@ export default function Home() {
           ) : (
             <ul className="project-grid">
               {projects.map((p) => (
-                <li key={p.title} className="project-card">
-                  <h3 className="project-card__title">{p.title}</h3>
-                  <p className="project-card__summary">{p.summary}</p>
-                  <ul className="tag-list" aria-label={ui.technologiesUsedIn(p.title)}>
-                    {p.stack.map((s) => (
-                      <li key={s} className="tag">{s}</li>
-                    ))}
-                  </ul>
-                  <p className="project-card__links">
-                    {p.href && (
-                      <a href={p.href} className="text-link">
-                        {ui.liveSite}<span className="sr-only"> {ui.forProject(p.title)}</span>
-                      </a>
-                    )}
-                    {p.repo && (
-                      <a href={p.repo} className="text-link">
-                        {ui.sourceCode}<span className="sr-only"> {ui.forProject(p.title)}</span>
-                      </a>
-                    )}
-                  </p>
+                <li
+                  key={p.title}
+                  className={`project-card${p.image ? "" : " project-card--text-only"}`}
+                >
+                  <div className="project-card__body">
+                    <h3 className="project-card__title">{p.title}</h3>
+                    <p className="project-card__summary">{p.summary}</p>
+                    <ul className="tag-list" aria-label={ui.technologiesUsedIn(p.title)}>
+                      {p.stack.map((s) => (
+                        <li key={s} className="tag">{s}</li>
+                      ))}
+                    </ul>
+                    <p className="project-card__links">
+                      {p.href && (
+                        <a href={p.href} className="text-link">
+                          {ui.liveSite}<span className="sr-only"> {ui.forProject(p.title)}</span>
+                        </a>
+                      )}
+                      {p.repo && (
+                        <a href={p.repo} className="text-link">
+                          {ui.sourceCode}<span className="sr-only"> {ui.forProject(p.title)}</span>
+                        </a>
+                      )}
+                    </p>
+                  </div>
+
+                  {p.image && (
+                    <div className="project-card__image">
+                      <Image
+                        src={p.image}
+                        alt={p.imageAlt ?? `Screenshot of ${p.title}`}
+                        width={1600}
+                        height={900}
+                        sizes="(min-width: 900px) 600px, 100vw"
+                      />
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

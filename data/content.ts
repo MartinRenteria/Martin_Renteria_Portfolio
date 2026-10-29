@@ -4,6 +4,8 @@ export type Project = {
     stack: string[];
     href?: string;
     repo?: string;
+    image?: string;
+    imageAlt?: string;
 };
 
 export const site = {
@@ -62,6 +64,18 @@ export const contact = {
     linkedinLabel: "LinkedIn",
     linkedinHidden: "profile",
 };
+
+export const projects: Project[] = [
+    {
+        title: " A11y-gpt-remediation-engine ",
+        summary: "A11y-GPT is a web app that helps developers find and fix accessibility problems. Paste a React component and it returns the WCAG violations it found, a corrected version with a side-by-side diff, and a plain-language explanation of each change. It also generates alt-text from uploaded images and suggests color adjustments that meet contrast requirements.",
+        stack: ["Next.js 15, React 19, TypeScript, Tailwind CSS, Radix UI, Google Gemini API, deployed on Vercel"],
+        href: "https://a11y-gpt-remediation-engine-fccx.vercel.app/",
+        repo: "https://github.com/MartinRenteria/a11y-gpt-remediation-engine",
+        image: "/projectImages/a11y_gpt_remediation.png",
+        imageAlt: "A11y-GPT remediation engine screenshot"
+    }
+];
 
 export const projectsEmpty = {
     before: "I am still putting this section together. Check back soon, or ",
@@ -124,5 +138,3 @@ export const organizations = [
             "A volunteer-driven team that strengthens the resilience of Washington's communities and critical infrastructure through incident response support, preparedness guidance, and cyber defense collaboration.",
     },
 ];
-
-export const projects: Project[] = [];

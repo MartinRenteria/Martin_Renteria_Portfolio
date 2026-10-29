@@ -13,7 +13,7 @@
   --ink: #e8edf2;
   --muted: #a7b3c1;
   --line: #243040;
-  --line-strong: #6b7a8c; 
+  --line-strong: #6b7a8c;
   --accent: #2dd4bf;
   --accent-hover: #99f6e4;
   --accent-ink: #0b0f14;
@@ -223,15 +223,19 @@
   }
 
   .project-grid {
-    @apply grid gap-5 sm:grid-cols-2 lg:grid-cols-3;
+    @apply grid gap-8;
   }
 
   .project-card {
-    @apply rounded-xl border border-line bg-surface p-6 transition-colors hover:border-accent/60;
+    @apply grid grid-cols-1 items-center gap-6 rounded-xl border border-line bg-surface p-6 transition-colors hover:border-accent/60 md:p-8 lg:gap-10;
+  }
+
+  .project-card__body {
+    @apply min-w-0;
   }
 
   .project-card__title {
-    @apply mb-2 font-display text-xl font-bold;
+    @apply mb-2 font-display text-xl font-bold md:text-2xl;
   }
 
   .project-card__summary {
@@ -240,6 +244,25 @@
 
   .project-card__links {
     @apply mt-4 flex gap-5;
+  }
+
+  .project-card__image img {
+    @apply h-auto w-full rounded-lg border border-line;
+  }
+
+  @media (min-width: 64rem) {
+    .project-card:nth-child(even) {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    }
+
+    .project-card:nth-child(even) .project-card__image {
+      order: -1;
+    }
+
+    .project-card--text-only,
+    .project-card--text-only:nth-child(even) {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
   .tag-list {
@@ -290,6 +313,7 @@
 
   /* ---- Motion preferences --------------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
+
     .btn,
     .project-card {
       transition: none;
@@ -301,9 +325,9 @@
     .btn {
       border-color: ButtonText;
     }
-
     .empty-note,
-    .project-card {
+    .project-card,
+    .project-card__image img {
       border-color: CanvasText;
     }
   }
