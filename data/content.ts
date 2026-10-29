@@ -51,7 +51,7 @@ export const hero = {
 
 export const headings = {
     experience: "Experience",
-    projects: "Projects",
+    projects: "Featured Case Study",
     skills: "Skills",
     education: "Education and training",
     organizations: "Organizations",

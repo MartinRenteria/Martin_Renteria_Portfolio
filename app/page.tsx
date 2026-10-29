@@ -55,7 +55,7 @@ export default function Home() {
             </h1>
             <p className="hero__summary">{profile.summary}</p>
             <p className="actions">
-              <a href="#projects" className="btn btn-primary">{hero.primaryButton}</a>
+              <a id="main" href="#projects" className="btn btn-primary">{hero.primaryButton}</a>
               <a href={`mailto:${profile.email}`} className="btn btn-ghost">{hero.secondaryButton}</a>
             </p>
           </section>
